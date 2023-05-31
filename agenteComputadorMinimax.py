@@ -17,7 +17,8 @@ class AgenteComputadorMinimax(Jogador):
 
     #O método retornar_jogada recebe um objeto jogo como parâmetro e retorna a próxima jogada a partir do minimax ou aleatória
     def retornar_jogada(self, jogo):
-        if len(jogo.movimentos_disponiveis()) == 16: #Se for a primeira jogada vai aleatório
+        # Se for a primeira jogada vai aleatório
+        if len(jogo.movimentos_disponiveis()) == 16:
             nova_posicao = random.choice(jogo.movimentos_disponiveis())
         else:
             nova_posicao = self.minimax(jogo, self.letra, self.max_profundidade)['posicao']
@@ -40,7 +41,7 @@ class AgenteComputadorMinimax(Jogador):
                                 estado.num_quadrados_vazios() + 1)}
         elif not estado.quadrados_vazios() or profundidade == 0:
             #Retorna um dicionário com a posição como None e a pontuação obtida através da função heuristica
-            return {'posicao': None, 'pontuacao': self.heuristica_avaliar_estado(estado, jogador_max)}
+            return {'posicao': None, 'pontuacao': self.heuristica_vencedor_estados(estado, jogador_max)}
         #Verifica se o jogador atual é o jogador max
         if jogador == jogador_max:
             # Inicializa a melhor jogada como tendo uma pontuação inicial de menos infinito
@@ -73,15 +74,15 @@ class AgenteComputadorMinimax(Jogador):
                 if sim_pontuacao['pontuacao'] < melhor_jogada['pontuacao']:
                     melhor_jogada = sim_pontuacao
 
-        # melhor_jogada, que contém a posição e a pontuação da melhor jogada
+        # melhor_jogada, que contém a posição e a pontuação da melhor jogadas
         return melhor_jogada
 
-    def heuristica_avaliar_estado(self, estado, jogador_max):
+    def heuristica_vencedor_estados(self, estado, jogador_max):
         outro_jogador = 'O' if jogador_max == 'X' else 'X'
         # Verifica se o jogador atual é o vencedor
         if estado.vencedor_atual == jogador_max:
             return 1
-        # Verifica se o outro jogador é o vencedor
+        # Verifica se o outro jogador é o vencedor3
         elif estado.vencedor_atual == outro_jogador:
             return -1
         # Caso contrário, o jogo está empatado

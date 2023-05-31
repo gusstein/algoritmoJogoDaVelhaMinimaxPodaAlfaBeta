@@ -50,7 +50,7 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
             melhor_jogada = {'posicao': None, 'pontuacao': -math.inf}
         else:
             #Minimiza pontuação
-            #Essa pontuação inicialmente alta permite que qualquer jogada avaliada seja considerada pior do que a pontuação atual,
+            #permite que qualquer jogada avaliada seja considerada pior do que a pontuação atual,
             # garantindo que uma jogada com uma pontuação mais baixa seja selecionada.
             melhor_jogada = {'posicao': None, 'pontuacao': math.inf}
 

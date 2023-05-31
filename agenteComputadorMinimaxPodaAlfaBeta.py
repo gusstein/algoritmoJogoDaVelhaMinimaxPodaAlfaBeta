@@ -62,21 +62,21 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
         for jogada_possivel in jogo.movimentos_disponiveis():
             jogo.fazer_jogada(jogada_possivel, jogador)
             # diminui a profundidade em cada chamada recursiva
-            sim_pontuacao = self.minimaxPodaAlfaBeta(jogo, outro_jogador, profundidade - 1, alfa, beta)
+            pontuacao = self.minimaxPodaAlfaBeta(jogo, outro_jogador, profundidade - 1, alfa, beta)
 
             jogo.tabuleiro[jogada_possivel] = ' '
             jogo.vencedor_atual = None
-            sim_pontuacao['posicao'] = jogada_possivel  # isso representa a jogada ótima seguinte
+            pontuacao['posicao'] = jogada_possivel  # isso representa a jogada ótima seguinte
 
             # atualiza os valores de alfa e beta e realiza a poda quando beta for menor ou igual a alfa
             if jogador == jogador_max:  # X é o jogador max
-                if sim_pontuacao['pontuacao'] > melhor_jogada['pontuacao']:
-                    melhor_jogada = sim_pontuacao
+                if pontuacao['pontuacao'] > melhor_jogada['pontuacao']:
+                    melhor_jogada = pontuacao
                     # atualiza o valor de alfa com o max entre o valor atual de alfa e a
                 alfa = max(alfa, melhor_jogada['pontuacao'])
             else:
-                if sim_pontuacao['pontuacao'] < melhor_jogada['pontuacao']:
-                    melhor_jogada = sim_pontuacao
+                if pontuacao['pontuacao'] < melhor_jogada['pontuacao']:
+                    melhor_jogada = pontuacao
                     # atualiza o valor de beta com o min entre o valor atual de beta e a
                 beta = min(beta, melhor_jogada['pontuacao'])
 

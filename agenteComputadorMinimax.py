@@ -51,7 +51,6 @@ class AgenteComputadorMinimax(Jogador):
 
         #Itera sobre todas as jogadas possíveis no estado atual
         for jogada_possivel in jogo.movimentos_disponiveis():
-            #Faz uma jogada possível no estado atual
             jogo.fazer_jogada(jogada_possivel, jogador)
             pontuacao = self.minimax(jogo, outro_jogador, profundidade - 1)
 

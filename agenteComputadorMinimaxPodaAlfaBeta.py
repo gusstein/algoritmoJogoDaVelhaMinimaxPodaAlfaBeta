@@ -72,7 +72,7 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
             if jogador == jogador_max:  # X é o jogador max
                 if pontuacao['pontuacao'] > melhor_jogada['pontuacao']:
                     melhor_jogada = pontuacao
-                    # atualiza o valor de alfa com o max entre o valor atual de alfa e a
+                    # atualiza o valor de alfa com o max entre o valor atual de alfa e   a
                 alfa = max(alfa, melhor_jogada['pontuacao'])
             else:
                 if pontuacao['pontuacao'] < melhor_jogada['pontuacao']:

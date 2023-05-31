@@ -32,7 +32,6 @@ class JogoDaVelha():
             self.tabuleiro[posicao] = letra
             if self.verificar_vencedor(posicao, letra):
                 self.vencedor_atual = letra
-        #O método retorna True se a jogada foi feita com sucesso e False caso contrário
             return True
         return False
 

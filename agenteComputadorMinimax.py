@@ -24,7 +24,7 @@ class AgenteComputadorMinimax(Jogador):
             nova_posicao = self.minimax(jogo, self.letra, self.max_profundidade)['posicao']
         return nova_posicao
 
-    def minimax(self, estado, jogador, profundidade):
+    def minimax(self, jogo, jogador, profundidade):
         # Obtém a letra do jogador atual
         jogador_max = self.letra
         # Define a letra do outro jogador com base na letra do jogador atual
@@ -34,14 +34,15 @@ class AgenteComputadorMinimax(Jogador):
         # Retorna um dicionário com a posição como None e a pontuação calculada
         #
         # A pontuação é determinada pelo número
-        # de quadrados vazios multiplicado por 1 se o outro jogador for o jogador max, ou multiplicado por -1 se for o jogador min
-        if estado.vencedor_atual == outro_jogador:
-            return {'posicao': None,
-                    'pontuacao': 1 * (estado.num_quadrados_vazios() + 1) if outro_jogador == jogador_max else -1 * (
-                                estado.num_quadrados_vazios() + 1)}
-        elif not estado.quadrados_vazios() or profundidade == 0:
+        # de posicoes vazias multiplicado por 1 se o outro jogador for o jogador max, ou multiplicado por -1 se for o jogador min
+        if jogo.vencedor_atual == outro_jogador:
+            return {'posicao': None,'pontuacao': 1 * (jogo.num_posicoes_vazias() + 1) if outro_jogador == jogador_max
+                        else -1 * (jogo.num_posicoes_vazias() + 1)}
+        elif not jogo.posicoes_vazias() or profundidade == 0:
             #Retorna um dicionário com a posição como None e a pontuação obtida através da função heuristica
-            return {'posicao': None, 'pontuacao': self.heuristica_vencedor_estados(estado, jogador_max)}
+            return {'posicao': None, 'pontuacao': self.heuristica_vencedor_jogo(jogo, jogador_max)}
+
+
         #Verifica se o jogador atual é o jogador max
         if jogador == jogador_max:
             # Inicializa a melhor jogada como tendo uma pontuação inicial de menos infinito
@@ -51,16 +52,16 @@ class AgenteComputadorMinimax(Jogador):
             melhor_jogada = {'posicao': None, 'pontuacao': math.inf}
 
         #Itera sobre todas as jogadas possíveis no estado atual
-        for jogada_possivel in estado.movimentos_disponiveis():
+        for jogada_possivel in jogo.movimentos_disponiveis():
             #Faz uma jogada possível no estado atual
-            estado.fazer_jogada(jogada_possivel, jogador)
+            jogo.fazer_jogada(jogada_possivel, jogador)
             #Chama recursivamente a função minimax para o próximo estado
             #com o outro jogador como jogador atual e uma profundidade reduzida em 1
-            sim_pontuacao = self.minimax(estado, outro_jogador, profundidade - 1)
-            # Desfaz a jogada feita no estado atual
-            estado.tabuleiro[jogada_possivel] = ' '
-            # Reseta o vencedor atual do estado
-            estado.vencedor_atual = None
+            sim_pontuacao = self.minimax(jogo, outro_jogador, profundidade - 1)
+            # Desfaz a jogada feita no jogo atual
+            jogo.tabuleiro[jogada_possivel] = ' '
+            # Reseta o vencedor atual do jogo
+            jogo.vencedor_atual = None
             #Define a posição da jogada atual no dicionário sim_pontuacao.
             sim_pontuacao['posicao'] = jogada_possivel
 
@@ -77,13 +78,13 @@ class AgenteComputadorMinimax(Jogador):
         # melhor_jogada, que contém a posição e a pontuação da melhor jogadas
         return melhor_jogada
 
-    def heuristica_vencedor_estados(self, estado, jogador_max):
+    def heuristica_vencedor_jogo(self, jogo, jogador_max):
         outro_jogador = 'O' if jogador_max == 'X' else 'X'
         # Verifica se o jogador atual é o vencedor
-        if estado.vencedor_atual == jogador_max:
+        if jogo.vencedor_atual == jogador_max:
             return 1
         # Verifica se o outro jogador é o vencedor3
-        elif estado.vencedor_atual == outro_jogador:
+        elif jogo.vencedor_atual == outro_jogador:
             return -1
         # Caso contrário, o jogo está empatado
         else:

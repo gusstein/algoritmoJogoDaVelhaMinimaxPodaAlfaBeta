@@ -12,7 +12,8 @@ class AgenteHumano(Jogador):
         quadrado_valido = False
         valor = None
         while not quadrado_valido:
-            quadrado = input('Vez do jogador ' + self.letra + '. Insira a jogada (0-15): ')
+            quadrado = input('Vez do |JOGADOR ' + self.letra + '|. Insira a jogada [0-15]'+
+            '\n -| ')
             try:
                 valor = int(quadrado)
                 #vrifica se o valor está presente na lista de movimentos disponíveis no objeto jogo
@@ -21,6 +22,6 @@ class AgenteHumano(Jogador):
                     raise ValueError
                 quadrado_valido = True
             except ValueError:
-                print('Quadrado inválido. Tente novamente.')
+                print('Posição ja foi escolhida ou posição inválida')
         #jogada do jogador
         return valor

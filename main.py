@@ -15,27 +15,28 @@ def jogar(jogo, jogador_x, jogador_o):
     letra = 'X'
     num_jogadas = 0
 
-    # Enquanto ainda há quadrados vazios no tabuleiro
-    while jogo.quadrados_vazios():
+    # Enquanto ainda há posicoes vazias no tabuleiro
+    while jogo.posicoes_vazias():
         if letra == 'O':
             # Marca o início do tempo de jogada
             inicio_tempo = time.time()
             # Obtém a jogada do jogador O
-            quadrado = jogador_o.retornar_jogada(jogo)
+            posicao = jogador_o.retornar_jogada(jogo)
             # Calcula o tempo de jogada
             tempo_jogada = time.time() - inicio_tempo
         else:
             #Marca o início do tempo de jogada
             inicio_tempo = time.time()
             #Obtém a jogada do jogador X
-            quadrado = jogador_x.retornar_jogada(jogo)
+            posicao = jogador_x.retornar_jogada(jogo)
             # Calcula o tempo de jogada
             tempo_jogada = time.time() - inicio_tempo
 
-        if jogo.fazer_jogada(quadrado, letra):
+        if jogo.fazer_jogada(posicao, letra):
             # Incrementa o número de jogadas
             num_jogadas += 1
             print("--------------------------------------------")
+            print("|JOGADOR "+letra+ "|")
             print("Jogada " + num_jogadas.__str__() + ":")
             print("Tempo da jogada: " + tempo_jogada.__str__()  + " segundos")
             jogo.imprimir_tabuleiro()
@@ -55,7 +56,7 @@ def jogar(jogo, jogador_x, jogador_o):
 #Menu inicial
 if __name__ == '__main__':
     while True:
-        modo_jogo = input("Estratégia [ 1 - Humano X Computador || 2 - Computador X Computador ]"
+        modo_jogo = input("Game mode - [ 1 - Humano X Computador || 2 - Computador X Computador ]"
                 " \n -| ")
 
         jogador_x = None

@@ -35,12 +35,10 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
 
         # #Verifica se o jogador atual é o vencedor,
         if jogo.vencedor_atual == outro_jogador:
-            #retorna um dicionário com a posição e a pontuação correspondente
-            return {'posicao': None, 'pontuacao': 1 * (jogo.num_posicoes_vazias() + 1) if outro_jogador == jogador_max else -1 * (
-                    jogo.num_posicoes_vazias() + 1)}
-        # verifica se não há mais posicoes vazias ou se a profundidade máxima foi atingida
+            return {'posicao': None,'pontuacao': self.heuristica_avaliar_jogo(jogo, jogador_max)}
+        #Verificar se o jogo chegou ao fim ou se a profundidade máxima foi alcançada
         elif not jogo.posicoes_vazias() or profundidade == 0:
-            # retorna um dicionário com a posição como nula e a pontuação obtida a partir da avaliação heurística do estado
+            #Retorna um dicionário com a posição como None e a pontuação obtida através da função heuristica
             return {'posicao': None, 'pontuacao': self.heuristica_avaliar_jogo(jogo, jogador_max)}
 
         if jogador == jogador_max:

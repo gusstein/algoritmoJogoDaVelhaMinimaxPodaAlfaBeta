@@ -33,8 +33,7 @@ class AgenteComputadorMinimax(Jogador):
 
         #Verificar se o jogador atual perdeu o jogo.
         if jogo.vencedor_atual == outro_jogador:
-            return {'posicao': None,'pontuacao': 1 * (jogo.num_posicoes_vazias() + 1) if outro_jogador == jogador_max
-                        else -1 * (jogo.num_posicoes_vazias() + 1)}
+            return {'posicao': None,'pontuacao': self.heuristica_vencedor_jogo(jogo, jogador_max)}
         #Verificar se o jogo chegou ao fim ou se a profundidade máxima foi alcançada
         elif not jogo.posicoes_vazias() or profundidade == 0:
             #Retorna um dicionário com a posição como None e a pontuação obtida através da função heuristica

@@ -45,11 +45,13 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
 
         if jogador == jogador_max:
             # Maximixa pontuacao
+
             #Essa pontuação inicialmente baixa permite que qualquer jogada avaliada seja considerada melhor do que a
             # pontuação atual, garantindo que uma jogada com uma pontuação mais alta seja selecionada.
             melhor_jogada = {'posicao': None, 'pontuacao': -math.inf}
         else:
             #Minimiza pontuação
+
             #permite que qualquer jogada avaliada seja considerada pior do que a pontuação atual,
             # garantindo que uma jogada com uma pontuação mais baixa seja selecionada.
             melhor_jogada = {'posicao': None, 'pontuacao': math.inf}
@@ -62,27 +64,22 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
             # diminui a profundidade em cada chamada recursiva
             sim_pontuacao = self.minimaxPodaAlfaBeta(jogo, outro_jogador, profundidade - 1, alfa, beta)
 
-            # desfaz a jogada
             jogo.tabuleiro[jogada_possivel] = ' '
             jogo.vencedor_atual = None
             sim_pontuacao['posicao'] = jogada_possivel  # isso representa a jogada ótima seguinte
 
             # atualiza os valores de alfa e beta e realiza a poda quando beta for menor ou igual a alfa
-            # Isso permite evitar a exploração de caminhos que não levarão a uma jogada ótima
             if jogador == jogador_max:  # X é o jogador max
                 if sim_pontuacao['pontuacao'] > melhor_jogada['pontuacao']:
                     melhor_jogada = sim_pontuacao
                     # atualiza o valor de alfa com o max entre o valor atual de alfa e a
-                    # pontuação da melhor jogada encontrada até o momento
                 alfa = max(alfa, melhor_jogada['pontuacao'])
             else:
                 if sim_pontuacao['pontuacao'] < melhor_jogada['pontuacao']:
                     melhor_jogada = sim_pontuacao
                     # atualiza o valor de beta com o min entre o valor atual de beta e a
-                    # pontuação da melhor jogada encontrada até o momento
                 beta = min(beta, melhor_jogada['pontuacao'])
 
-                # realiza a poda alfa-beta quando beta é menor ou igual a alfa.
                 # Evita a exploração de ramos que não levarão a uma jogada ótima pois ja empatou ou perdeu
                 if beta <= alfa:
                     break

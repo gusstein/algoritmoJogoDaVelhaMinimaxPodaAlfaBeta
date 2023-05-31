@@ -32,9 +32,6 @@ class AgenteComputadorMinimax(Jogador):
         outro_jogador = 'O' if jogador == 'X' else 'X'
 
         #Verificar se o jogador atual perdeu o jogo.
-        #Se o jogador atual for o outro_jogador e ele for o vencedor do
-        #estado atual do jogo, significa que o jogador atual perdeu e  em seguida retorna um dicionário com a posição
-        # como None e a pontuação calculada.
         if jogo.vencedor_atual == outro_jogador:
             return {'posicao': None,'pontuacao': 1 * (jogo.num_posicoes_vazias() + 1) if outro_jogador == jogador_max
                         else -1 * (jogo.num_posicoes_vazias() + 1)}
@@ -56,8 +53,6 @@ class AgenteComputadorMinimax(Jogador):
         for jogada_possivel in jogo.movimentos_disponiveis():
             #Faz uma jogada possível no estado atual
             jogo.fazer_jogada(jogada_possivel, jogador)
-            #Chama recursivamente a função minimax para o próximo estado
-            #com o outro jogador como jogador atual e uma profundidade reduzida em 1
             pontuacao = self.minimax(jogo, outro_jogador, profundidade - 1)
 
             # Desfaz a jogada feita no jogo atual

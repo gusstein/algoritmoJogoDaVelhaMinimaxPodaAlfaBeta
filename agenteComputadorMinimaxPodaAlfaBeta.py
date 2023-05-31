@@ -78,7 +78,8 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
             else:
                 if sim_pontuacao['pontuacao'] < melhor_jogada['pontuacao']:
                     melhor_jogada = sim_pontuacao
-                    # valor mínimo que o jogador max está garantido para obter até o momento na árvore de jogadas
+                    # atualiza o valor de beta com o min entre o valor atual de beta e a
+                    # pontuação da melhor jogada encontrada até o momento
                 beta = min(beta, melhor_jogada['pontuacao'])
 
                 # realiza a poda alfa-beta quando beta é menor ou igual a alfa.

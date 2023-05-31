@@ -42,9 +42,9 @@ class JogoDaVelha():
         indice_linha = posicao // 4
 
         # Obtém a linha correspondente
-        row = self.tabuleiro[indice_linha * 4: (indice_linha + 1) * 4]
+        linha = self.tabuleiro[indice_linha * 4: (indice_linha + 1) * 4]
         # Verifica se todas as posições da linha são iguais à letra do jogador atual
-        if all([s == letra for s in row]):
+        if all([s == letra for s in linha]):
             return True
 
         col_ind = posicao % 4  # Índice da coluna
@@ -55,18 +55,18 @@ class JogoDaVelha():
             return True
 
         # Diagonal1
-        if posicao % 5 == 0:
+        if posicao in [0, 5, 10, 15]:
             # Obtém a diagonal principal
-            diagonal1 = [self.tabuleiro[i] for i in [0, 5, 10, 15]]
+            diagonal = [self.tabuleiro[i] for i in [0, 5, 10, 15]]
             # Verifica se todas as posições da diagonal principal são iguais à letra do jogador atual
-            if all([s == letra for s in diagonal1]):
+            if all([s == letra for s in diagonal]):
                 return True
         # Diagonal2
         if posicao in [3, 6, 9, 12]:
             # Obtém a diagonal secundária
-            diagonal2 = [self.tabuleiro[i] for i in [3, 6, 9, 12]]
+            diagonal = [self.tabuleiro[i] for i in [3, 6, 9, 12]]
             # Verifica se todas as posições da diagonal secundária são iguais à letra do jogador atual
-            if all([s == letra for s in diagonal2]):
+            if all([s == letra for s in diagonal]):
                 return True
 
         return False  # Não há vitória

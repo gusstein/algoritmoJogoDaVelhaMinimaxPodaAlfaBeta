@@ -49,7 +49,7 @@ def jogar(jogo, jogador_x, jogador_o):
                 return letra
             # Alterna o jogador
             letra = 'O' if letra == 'X' else 'X'
-        time.sleep(.8)
+        time.sleep(.6)
 
     print('Jogo empatado')
 

@@ -45,9 +45,13 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
 
         if jogador == jogador_max:
             # Maximixa pontuacao
+            #Essa pontuação inicialmente baixa permite que qualquer jogada avaliada seja considerada melhor do que a
+            # pontuação atual, garantindo que uma jogada com uma pontuação mais alta seja selecionada.
             melhor_jogada = {'posicao': None, 'pontuacao': -math.inf}
         else:
             #Minimiza pontuação
+            #Essa pontuação inicialmente alta permite que qualquer jogada avaliada seja considerada pior do que a pontuação atual,
+            # garantindo que uma jogada com uma pontuação mais baixa seja selecionada.
             melhor_jogada = {'posicao': None, 'pontuacao': math.inf}
 
         #percorre todas as jogadas possíveis a partir do estado atual e
@@ -65,15 +69,20 @@ class AgenteComputadorMinimaxPodaAlfaBeta(Jogador):
 
             # atualiza os valores de alfa e beta e realiza a poda quando beta for menor ou igual a alfa
             # Isso permite evitar a exploração de caminhos que não levarão a uma jogada ótima
-            if jogador == jogador_max:  # X é o jogador máximo
+            if jogador == jogador_max:  # X é o jogador max
                 if sim_pontuacao['pontuacao'] > melhor_jogada['pontuacao']:
                     melhor_jogada = sim_pontuacao
+                    # atualiza o valor de alfa com o max entre o valor atual de alfa e a
+                    # pontuação da melhor jogada encontrada até o momento
                 alfa = max(alfa, melhor_jogada['pontuacao'])
             else:
                 if sim_pontuacao['pontuacao'] < melhor_jogada['pontuacao']:
                     melhor_jogada = sim_pontuacao
+                    # valor mínimo que o jogador max está garantido para obter até o momento na árvore de jogadas
                 beta = min(beta, melhor_jogada['pontuacao'])
 
+                # realiza a poda alfa-beta quando beta é menor ou igual a alfa.
+                # Evita a exploração de ramos que não levarão a uma jogada ótima pois ja empatou ou perdeu
                 if beta <= alfa:
                     break
 
